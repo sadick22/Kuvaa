@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -291,9 +290,7 @@
       }
     };
 
-    const EMAILJS_SERVICE_ID  = "service_cn9abus";
-    const EMAILJS_TEMPLATE_ID = "template_kohavhd";
-    const EMAILJS_PUBLIC_KEY  = "dIJW0gd0mxhcBr0z6";
+    const FORMSPREE_URL = "https://formspree.io/f/xeevnojp";
 
     function App() {
       const [lang, setLang] = useState("en");
@@ -412,12 +409,12 @@
         if (Object.keys(e).length) { setErrors(e); return; }
         setErrors({}); setGlobalError(""); setLoading(true);
         try {
-          await emailjs.send(
-            EMAILJS_SERVICE_ID,
-            EMAILJS_TEMPLATE_ID,
-            { from_name: form.name, from_email: form.email, phone: form.phone, to_email: "kuvaa.official@gmail.com" },
-            { publicKey: EMAILJS_PUBLIC_KEY }
-          );
+          const res = await fetch(FORMSPREE_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone })
+          });
+          if (!res.ok) throw new Error("Formspree error");
           setSuccess(true);
         } catch(err) {
           console.error("EmailJS error:", err);
@@ -428,8 +425,7 @@
       };
 
       useEffect(() => {
-        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-        const handler = (e) => { if(e.key==="Escape") onClose(); };
+const handler = (e) => { if(e.key==="Escape") onClose(); };
         document.addEventListener("keydown", handler);
         return () => document.removeEventListener("keydown", handler);
       }, []);
