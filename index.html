@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuvaa — The Essence of True Sophistication</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #ffffff;
+      --black: #0a0a0a;
+      --cream: #f5f0eb;
+      --red: #8b1a1a;
+      --red-dark: #6b1010;
+      --gray-light: rgba(255,255,255,0.08);
+      --gray-mid: rgba(255,255,255,0.15);
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html, body, #root { height: 100%; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ANNOUNCEMENT BAR */
+    .announcement-bar {
+      background: var(--black);
+      border-bottom: 0.5px solid rgba(255,255,255,0.12);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11.5px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.75);
+      gap: 8px;
+    }
+
+    .announcement-bar .sign-up-link {
+      color: var(--white);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      transition: color var(--transition);
+    }
+
+    .announcement-bar .sign-up-link:hover { color: #ccc; }
+
+    .announcement-bar .arrow { font-size: 12px; }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      border-bottom: 0.5px solid rgba(0,0,0,0.08);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: #1a1a1a;
+      text-decoration: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid transparent;
+      transition: border-color var(--transition);
+    }
+
+    .nav-link.active { border-bottom-color: #1a1a1a; }
+    .nav-link:hover { border-bottom-color: rgba(0,0,0,0.3); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--black);
+      text-transform: uppercase;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: #f0ede8;
+      border-radius: 20px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .lang-btn {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: #888;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      padding: 5px 12px;
+      border-radius: 16px;
+      transition: all var(--transition);
+      text-transform: uppercase;
+    }
+
+    .lang-btn.active {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .coming-soon-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      border: 0.5px solid #ccc;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: calc(100vh - 101px);
+      min-height: 600px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: brightness(0.62);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0.0) 30%,
+        rgba(0,0,0,0.25) 55%,
+        rgba(0,0,0,0.65) 100%
+      );
+    }
+
+    .hero-center {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px 0;
+    }
+
+    .hero-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+      max-width: 600px;
+    }
+
+    .join-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      padding: 14px 32px;
+      border-radius: 40px;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+
+    .join-btn:hover {
+      background: var(--red-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(139,26,26,0.45);
+    }
+
+    .join-btn:active { transform: translateY(0); }
+
+    .hero-bottom {
+      position: relative;
+      z-index: 2;
+      padding: 0 32px 28px;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 8.5vw, 108px);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 0.9;
+      user-select: none;
+    }
+
+    .hero-tagline .line2 {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    /* SOCIAL ROW */
+    .social-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px 24px;
+      background: var(--black);
+      border-top: 0.5px solid rgba(255,255,255,0.08);
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      cursor: pointer;
+      transition: color var(--transition);
+    }
+
+    .social-link:hover { color: var(--white); }
+
+    .social-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+      fill: currentColor;
+    }
+
+    .social-divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .footer-copy {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.25);
+      text-transform: uppercase;
+    }
+
+    /* MODAL OVERLAY */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .modal {
+      background: var(--white);
+      color: var(--black);
+      width: 100%;
+      max-width: 460px;
+      border-radius: 4px;
+      overflow: hidden;
+      animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      background: var(--black);
+      padding: 32px 36px 28px;
+      text-align: center;
+    }
+
+    .modal-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .modal-subtitle {
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+    }
+
+    .modal-body {
+      padding: 32px 36px;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+
+    .modal-desc {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.03em;
+      color: #777;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .form-field {
+      margin-bottom: 16px;
+    }
+
+    .form-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 7px;
+    }
+
+    .form-field input {
+      width: 100%;
+      border: 0.5px solid #ddd;
+      border-radius: 3px;
+      padding: 13px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--black);
+      background: #fafafa;
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .form-field input:focus {
+      border-color: var(--black);
+      background: var(--white);
+    }
+
+    .form-field input::placeholder { color: #bbb; }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3px;
+      padding: 16px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .submit-btn:hover { background: #222; }
+    .submit-btn:active { transform: scale(0.99); }
+    .submit-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.5);
+      font-size: 20px;
+      line-height: 1;
+      transition: color var(--transition);
+      z-index: 10;
+    }
+
+    .modal-close:hover { color: var(--white); }
+
+    .privacy-note {
+      font-size: 10px;
+      color: #bbb;
+      text-align: center;
+      margin-top: 14px;
+      letter-spacing: 0.03em;
+    }
+
+    /* SUCCESS STATE */
+    .success-state {
+      padding: 48px 36px;
+      text-align: center;
+    }
+
+    .success-icon {
+      width: 52px;
+      height: 52px;
+      background: #0a0a0a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .success-icon svg { width: 24px; height: 24px; }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+
+    .success-text {
+      font-size: 12.5px;
+      color: #777;
+      line-height: 1.65;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    /* ERROR */
+    .error-msg {
+      font-size: 11px;
+      color: #c0392b;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .global-error {
+      background: #fff0f0;
+      border: 0.5px solid #f5c6c6;
+      border-radius: 3px;
+      padding: 10px 14px;
+      font-size: 11.5px;
+      color: #c0392b;
+      margin-bottom: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // ─── TRANSLATION CONTENT ───────────────────────────────────────────
+    const T = {
+      en: {
+        announcement: "Get early access to launches and exclusive offers.",
+        signUpToday: "Sign Up Today",
+        women: "Women",
+        men: "Men",
+        kids: "Kids",
+        stories: "Kuvaa Stories",
+        comingSoon: "Coming Soon",
+        headline: "Join the Waiting\nList Today",
+        joinNow: "Join Now",
+        tagline1: "The Essence",
+        tagline2: "of True Sophistication",
+        instagram: "Instagram",
+        tiktok: "TikTok",
+        rights: "© 2025 Kuvaa. All rights reserved.",
+        modalSubtitle: "Exclusive Early Access",
+        modalTitle: "Reserve Your Spot",
+        modalDesc: "Be the first to know when we launch. Members get early access to new arrivals, exclusive offers, and curated drops.",
+        namePlaceholder: "Full Name",
+        emailPlaceholder: "Email Address",
+        phonePlaceholder: "Phone Number",
+        nameLabel: "Full Name",
+        emailLabel: "Email Address",
+        phoneLabel: "Phone Number",
+        submit: "Join the Waitlist",
+        submitting: "Submitting...",
+        privacy: "Your information is safe. No spam, ever.",
+        successTitle: "You're on the list.",
+        successText: "Welcome to Kuvaa. We'll be in touch with exclusive early access when we launch.",
+        requiredName: "Please enter your name.",
+        requiredEmail: "Please enter a valid email.",
+        requiredPhone: "Please enter your phone number.",
+        sendError: "Something went wrong. Please try again.",
+      },
+      sw: {
+        announcement: "Pata ufikiaji wa mapema kwa uzinduzi na orodha maalum.",
+        signUpToday: "Jisajili Leo",
+        women: "Wanawake",
+        men: "Wanaume",
+        kids: "Watoto",
+        stories: "Hadithi za Kuvaa",
+        comingSoon: "Inakuja Hivi Karibuni",
+        headline: "Jiunge na Orodha\nya Kusubiri Leo",
+        joinNow: "Jiunge Sasa",
+        tagline1: "Kiini cha",
+        tagline2: "Usafi wa Kweli",
+        instagram: "Instagram",
+        tiktok: "TikTok",
+        rights: "© 2025 Kuvaa. Haki zote zimehifadhiwa.",
+        modalSubtitle: "Ufikiaji wa Mapema Maalum",
+        modalTitle: "Hifadhi Nafasi Yako",
+        modalDesc: "Kuwa wa kwanza kujua tunapoanza. Wanachama hupata ufikiaji wa mapema wa bidhaa mpya na orodha maalum.",
+        namePlaceholder: "Jina Kamili",
+        emailPlaceholder: "Anwani ya Barua Pepe",
+        phonePlaceholder: "Nambari ya Simu",
+        nameLabel: "Jina Kamili",
+        emailLabel: "Barua Pepe",
+        phoneLabel: "Nambari ya Simu",
+        submit: "Jiunge na Orodha",
+        submitting: "Inatuma...",
+        privacy: "Taarifa zako ziko salama. Hakuna barua taka, kamwe.",
+        successTitle: "Uko kwenye orodha.",
+        successText: "Karibu Kuvaa. Tutawasiliana nawe na ufikiaji maalum wa mapema tunapoanza.",
+        requiredName: "Tafadhali ingiza jina lako.",
+        requiredEmail: "Tafadhali ingiza barua pepe halali.",
+        requiredPhone: "Tafadhali ingiza nambari ya simu.",
+        sendError: "Hitilafu imetokea. Tafadhali jaribu tena.",
+      }
+    };
+
+    // ─── HERO IMAGE (Unsplash — fashion couple, similar vibe) ────────────
+    const HERO_IMG = "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80&fit=crop";
+
+    // ─── EMAIL JS CONFIG (user fills in their own IDs) ───────────────────
+    const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+    const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
+
+    // ─── MAIN APP ────────────────────────────────────────────────────────
+    function App() {
+      const [lang, setLang] = useState("en");
+      const [modalOpen, setModalOpen] = useState(false);
+      const t = T[lang];
+
+      useEffect(() => {
+        if (modalOpen) {
+          document.body.style.overflow = "hidden";
+        } else {
+          document.body.style.overflow = "";
+        }
+        return () => { document.body.style.overflow = ""; };
+      }, [modalOpen]);
+
+      return (
+        <>
+          {/* Announcement Bar */}
+          <div className="announcement-bar">
+            {t.announcement}&nbsp;
+            <span className="sign-up-link" onClick={() => setModalOpen(true)}>
+              {t.signUpToday}
+            </span>
+            <span className="arrow">→</span>
+          </div>
+
+          {/* Nav */}
+          <nav>
+            <div className="nav-left">
+              <span className="nav-link active">{t.women}</span>
+              <span className="nav-link">{t.men}</span>
+              <span className="nav-link">{t.kids}</span>
+              <span className="nav-link">{t.stories}</span>
+            </div>
+
+            <div className="nav-logo">Kuvaa</div>
+
+            <div className="nav-right">
+              <span className="coming-soon-badge">{t.comingSoon}</span>
+              <div className="lang-toggle">
+                <button
+                  className={`lang-btn${lang === "en" ? " active" : ""}`}
+                  onClick={() => setLang("en")}
+                >EN</button>
+                <button
+                  className={`lang-btn${lang === "sw" ? " active" : ""}`}
+                  onClick={() => setLang("sw")}
+                >SW</button>
+              </div>
+            </div>
+          </nav>
+
+          {/* Hero */}
+          <div className="hero">
+            <img
+              className="hero-bg"
+              src={HERO_IMG}
+              alt="Kuvaa fashion"
+            />
+            <div className="hero-overlay" />
+
+            <div className="hero-center">
+              <h1 className="hero-headline">
+                {t.headline.split("\n").map((line, i) => (
+                  <span key={i}>{line}{i === 0 && <br />}</span>
+                ))}
+              </h1>
+              <button className="join-btn" onClick={() => setModalOpen(true)}>
+                {t.joinNow}
+              </button>
+            </div>
+
+            <div className="hero-bottom">
+              <div className="hero-tagline">
+                <div>{t.tagline1}</div>
+                <div className="line2">{t.tagline2}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Social Footer */}
+          <div className="social-row">
+            <a className="social-link" href="https://instagram.com" target="_blank" rel="noreferrer">
+              <svg className="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+              {t.instagram}
+            </a>
+            <div className="social-divider" />
+            <a className="social-link" href="https://tiktok.com" target="_blank" rel="noreferrer">
+              <svg className="social-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.05a8.22 8.22 0 004.82 1.55V7.16a4.85 4.85 0 01-1.05-.47z"/>
+              </svg>
+              {t.tiktok}
+            </a>
+            <div className="social-divider" />
+            <span className="footer-copy">{t.rights}</span>
+          </div>
+
+          {/* Modal */}
+          {modalOpen && (
+            <Modal
+              t={t}
+              onClose={() => setModalOpen(false)}
+            />
+          )}
+        </>
+      );
+    }
+
+    // ─── MODAL COMPONENT ─────────────────────────────────────────────────
+    function Modal({ t, onClose }) {
+      const [form, setForm] = useState({ name: "", email: "", phone: "" });
+      const [errors, setErrors] = useState({});
+      const [globalError, setGlobalError] = useState("");
+      const [loading, setLoading] = useState(false);
+      const [success, setSuccess] = useState(false);
+      const overlayRef = useRef(null);
+
+      const validate = () => {
+        const e = {};
+        if (!form.name.trim()) e.name = t.requiredName;
+        if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = t.requiredEmail;
+        if (!form.phone.trim()) e.phone = t.requiredPhone;
+        return e;
+      };
+
+      const handleSubmit = async () => {
+        const e = validate();
+        if (Object.keys(e).length) { setErrors(e); return; }
+        setErrors({});
+        setGlobalError("");
+        setLoading(true);
+
+        try {
+          // Initialize EmailJS (safe to call multiple times)
+          emailjs.init(EMAILJS_PUBLIC_KEY);
+
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            from_name:  form.name,
+            from_email: form.email,
+            phone:      form.phone,
+            to_email:   "kuvaa.official@gmail.com",
+          });
+
+          setSuccess(true);
+        } catch (err) {
+          console.error("EmailJS error:", err);
+          setGlobalError(t.sendError);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      const handleOverlayClick = (e) => {
+        if (e.target === overlayRef.current) onClose();
+      };
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") onClose();
+      };
+
+      useEffect(() => {
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+      }, []);
+
+      return (
+        <div className="modal-overlay" ref={overlayRef} onClick={handleOverlayClick}>
+          <div className="modal" role="dialog" aria-modal="true">
+            {/* Header */}
+            <div className="modal-header">
+              <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>
+              <div className="modal-logo">Kuvaa</div>
+              <div className="modal-subtitle">{t.modalSubtitle}</div>
+            </div>
+
+            {/* Body */}
+            <div className="modal-body">
+              {success ? (
+                <div className="success-state">
+                  <div className="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <div className="success-title">{t.successTitle}</div>
+                  <div className="success-text">{t.successText}</div>
+                </div>
+              ) : (
+                <>
+                  <div className="modal-title">{t.modalTitle}</div>
+                  <div className="modal-desc">{t.modalDesc}</div>
+
+                  {globalError && <div className="global-error">{globalError}</div>}
+
+                  <div className="form-field">
+                    <label>{t.nameLabel}</label>
+                    <input
+                      type="text"
+                      placeholder={t.namePlaceholder}
+                      value={form.name}
+                      onChange={e => setForm({ ...form, name: e.target.value })}
+                      onFocus={() => setErrors(prev => ({ ...prev, name: "" }))}
+                    />
+                    {errors.name && <div className="error-msg">{errors.name}</div>}
+                  </div>
+
+                  <div className="form-field">
+                    <label>{t.emailLabel}</label>
+                    <input
+                      type="email"
+                      placeholder={t.emailPlaceholder}
+                      value={form.email}
+                      onChange={e => setForm({ ...form, email: e.target.value })}
+                      onFocus={() => setErrors(prev => ({ ...prev, email: "" }))}
+                    />
+                    {errors.email && <div className="error-msg">{errors.email}</div>}
+                  </div>
+
+                  <div className="form-field">
+                    <label>{t.phoneLabel}</label>
+                    <input
+                      type="tel"
+                      placeholder={t.phonePlaceholder}
+                      value={form.phone}
+                      onChange={e => setForm({ ...form, phone: e.target.value })}
+                      onFocus={() => setErrors(prev => ({ ...prev, phone: "" }))}
+                    />
+                    {errors.phone && <div className="error-msg">{errors.phone}</div>}
+                  </div>
+
+                  <button
+                    className="submit-btn"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                  >
+                    {loading ? t.submitting : t.submit}
+                  </button>
+
+                  <div className="privacy-note">{t.privacy}</div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // ─── MOUNT ────────────────────────────────────────────────────────────
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
